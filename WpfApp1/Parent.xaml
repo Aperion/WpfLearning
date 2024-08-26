@@ -16,6 +16,7 @@
                      FanSpeed="{Binding ElementName=ParentElement, Path=Data.FanSpeed}"
                      Temperature="{Binding ElementName=ParentElement, Path=Data.Temperature}"/>
         
+        <!-- to test non-nested usercontrols -->
         <StackPanel Grid.Row="1">
             <Label>Parent bound Temp</Label>
             <TextBox Text="{Binding ElementName=ParentElement, Path=Data.Temperature}"></TextBox>

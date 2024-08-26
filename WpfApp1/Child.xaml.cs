@@ -27,17 +27,7 @@ public partial class Child : UserControl, INotifyPropertyChanged
     public static readonly DependencyProperty FanSpeedProperty =
         DependencyProperty.Register(nameof(FanSpeed),
             typeof(double),
-            typeof(Child),
-            new PropertyMetadata((o, args) =>
-            {
-                if (o is null)
-                {
-                    Console.WriteLine("trying to set FanSpeed to null");
-                    return;
-                }
-
-                ((o as Child)!).FanSpeed = (double)args.NewValue;
-            }));
+            typeof(Child));
 
     public double Temperature
     {
@@ -52,17 +42,7 @@ public partial class Child : UserControl, INotifyPropertyChanged
     public static readonly DependencyProperty TemperatureProperty =
         DependencyProperty.Register(nameof(Temperature),
             typeof(double),
-            typeof(Child),
-            new PropertyMetadata((o, args) =>
-            {
-                if (o is null)
-                {
-                    Console.WriteLine("trying to set Temperature to null");
-                    return;
-                }
-
-                ((o as Child)!).Temperature = (double)args.NewValue;
-            }));
+            typeof(Child));
 
     public event PropertyChangedEventHandler? PropertyChanged;
 
