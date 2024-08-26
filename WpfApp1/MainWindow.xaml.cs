@@ -21,7 +21,8 @@ namespace WpfApp1
     /// </summary>
     public partial class MainWindow : Window
     {
-        List<DataInfo> dataHolder = new List<DataInfo>() {
+        public List<DataInfo> dataHolder { get; set; } = new(2)
+        {
             new DataInfo(),
             new DataInfo()
         };
@@ -42,12 +43,11 @@ namespace WpfApp1
 
         private void Timer_Tick(object? sender, EventArgs e)
         {
-            for (int i = 0; i < dataHolder.Count; i++)
+            foreach (var data in dataHolder)
             {
-                var data = dataHolder[i];
                 data.FanSpeed = 50 + (new Random().NextDouble() * 0.2 - 0.1);
                 data.Temperature = 102 + (new Random().NextDouble() * 0.2 - 0.1);
-                dataHolder[i] = data; // Replace the modified struct back into the list
+                Console.WriteLine($"FanSpeed: {data.FanSpeed} Temperature: {data.Temperature}");
             }
         }
     }
