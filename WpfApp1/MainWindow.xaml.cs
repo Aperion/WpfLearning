@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -19,14 +21,25 @@ namespace WpfApp1
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, INotifyPropertyChanged
     {
-        public List<DataInfo> dataHolder { get; set; } = new(2)
+        private List<DataInfo> _dataHolder = new(2)
         {
             new DataInfo(),
             new DataInfo()
         };
-        
+
+        public List<DataInfo> dataHolder
+        {
+            get => _dataHolder;
+            set
+            {
+                if (Equals(value, _dataHolder)) return;
+                _dataHolder = value;
+                OnPropertyChanged();
+            }
+        }
+
         public MainWindow()
         {
             InitializeComponent();
@@ -47,8 +60,18 @@ namespace WpfApp1
             {
                 data.FanSpeed = 50 + (new Random().NextDouble() * 0.2 - 0.1);
                 data.Temperature = 102 + (new Random().NextDouble() * 0.2 - 0.1);
-                Console.WriteLine($"FanSpeed: {data.FanSpeed} Temperature: {data.Temperature}");
+                // Console.WriteLine($"FanSpeed: {data.FanSpeed} Temperature: {data.Temperature}");
             }
+            
+            FanSpeed1.Text = dataHolder[1].FanSpeed.ToString();
+            Temperature1.Text = dataHolder[1].Temperature.ToString();
+        }
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

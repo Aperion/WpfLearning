@@ -1,18 +1,30 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 
 namespace WpfApp1;
 
-public partial class Parent : UserControl
+public partial class Parent : UserControl, INotifyPropertyChanged
 {
     public Parent()
     {
         InitializeComponent();
     }
     
-    public DataInfo Data { get; set; }
-    
+    public DataInfo Data
+    {
+        get => (DataInfo)GetValue(DataProperty);
+        set
+        {
+            Console.WriteLine("Setting Data");
+            SetValue(DataProperty, value);
+            OnPropertyChanged();
+        }
+    }
+
     public static readonly DependencyProperty DataProperty =
         DependencyProperty.Register(nameof(Data),
             typeof(DataInfo),
@@ -27,6 +39,12 @@ public partial class Parent : UserControl
                 
                 ((o as Parent)!).Data = (DataInfo)args.NewValue;
             }));
-    
-    
+
+
+    public event PropertyChangedEventHandler? PropertyChanged;
+
+    protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
 }

@@ -4,29 +4,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:WpfApp1"
+             x:Name="ParentElement"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition />
-            <RowDefinition />
-            <RowDefinition />
-        </Grid.RowDefinitions>
-        <local:Child Grid.Row="0" FanSpeed="3" Temperature="42"></local:Child>
-        <local:Child Grid.Row="1" FanSpeed="4" Temperature="44"></local:Child>
-        <Grid Grid.Row="2">
-            <Grid.RowDefinitions>
-                <RowDefinition />
-                <RowDefinition />
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition />
-            </Grid.ColumnDefinitions>
-            <Label Grid.Column="0" Grid.Row="0">FanSpeed</Label>
-            <TextBox Grid.Column="1" Grid.Row="0"></TextBox>
-            <Label Grid.Column="0" Grid.Row="1">FanSpeed</Label>
-            <TextBox Grid.Column="1" Grid.Row="1"></TextBox>
-        </Grid>
+        <local:Child Grid.Row="0"
+                     FanSpeed="{Binding ElementName=ParentElement, Path=Data.FanSpeed}"
+                     Temperature="{Binding ElementName=ParentElement, Path=Data.Temperature}"/>
     </Grid>
 </UserControl>

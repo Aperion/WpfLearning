@@ -5,8 +5,31 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp1"
         mc:Ignorable="d"
+        x:Name="Main"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <local:Parent></local:Parent>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <local:Parent Grid.Row="0" Data="{Binding ElementName=Main, Path=dataHolder[0]}"/>
+        <local:Parent Grid.Row="1" Data="{Binding ElementName=Main, Path=dataHolder[1]}"/>
+        
+        <!-- test element to test non-nested elmenets -->
+        <StackPanel Grid.Row="2">
+            <Label> Non-Bound elements</Label>
+            <TextBox Name="FanSpeed1"/>
+            <TextBox Name="Temperature1"/>
+        </StackPanel>
+        <StackPanel Grid.Row="3">
+            <Label> Bound Local elements</Label>
+            <TextBox Text="{Binding ElementName=Main, Path=dataHolder[0].FanSpeed}"/>
+            <TextBox Text="{Binding ElementName=Main, Path=dataHolder[0].Temperature}"/>
+        </StackPanel>
+        
+        
     </Grid>
 </Window>
