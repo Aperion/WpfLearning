@@ -8,8 +8,17 @@
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
         <local:Child Grid.Row="0"
                      FanSpeed="{Binding ElementName=ParentElement, Path=Data.FanSpeed}"
                      Temperature="{Binding ElementName=ParentElement, Path=Data.Temperature}"/>
+        
+        <StackPanel Grid.Row="1">
+            <Label>Parent bound Temp</Label>
+            <TextBox Text="{Binding ElementName=ParentElement, Path=Data.Temperature}"></TextBox>
+        </StackPanel>
     </Grid>
 </UserControl>

@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 
 namespace WpfApp1;
 
-public partial class Child : UserControl
+public partial class Child : UserControl, INotifyPropertyChanged
 {
     public Child()
     {
@@ -14,7 +17,11 @@ public partial class Child : UserControl
     public double FanSpeed
     {
         get => (double)GetValue(FanSpeedProperty);
-        set => SetValue(FanSpeedProperty, value);
+        set
+        {
+            SetValue(FanSpeedProperty, value);
+            OnPropertyChanged();
+        }
     }
 
     public static readonly DependencyProperty FanSpeedProperty =
@@ -35,7 +42,11 @@ public partial class Child : UserControl
     public double Temperature
     {
         get => (double)GetValue(TemperatureProperty);
-        set => SetValue(TemperatureProperty, value);
+        set
+        {
+            SetValue(TemperatureProperty, value);
+            OnPropertyChanged();
+        }
     }
 
     public static readonly DependencyProperty TemperatureProperty =
@@ -52,4 +63,11 @@ public partial class Child : UserControl
 
                 ((o as Child)!).Temperature = (double)args.NewValue;
             }));
+
+    public event PropertyChangedEventHandler? PropertyChanged;
+
+    protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
 }

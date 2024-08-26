@@ -21,7 +21,7 @@ namespace WpfApp1
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window, INotifyPropertyChanged
+    public partial class MainWindow : Window
     {
         private List<DataInfo> _dataHolder = new(2)
         {
@@ -34,9 +34,7 @@ namespace WpfApp1
             get => _dataHolder;
             set
             {
-                if (Equals(value, _dataHolder)) return;
                 _dataHolder = value;
-                OnPropertyChanged();
             }
         }
 
@@ -65,13 +63,6 @@ namespace WpfApp1
             
             FanSpeed1.Text = dataHolder[1].FanSpeed.ToString();
             Temperature1.Text = dataHolder[1].Temperature.ToString();
-        }
-
-        public event PropertyChangedEventHandler? PropertyChanged;
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

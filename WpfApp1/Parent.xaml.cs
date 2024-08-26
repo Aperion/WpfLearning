@@ -7,7 +7,7 @@ using System.Windows.Controls;
 
 namespace WpfApp1;
 
-public partial class Parent : UserControl, INotifyPropertyChanged
+public partial class Parent : UserControl
 {
     public Parent()
     {
@@ -21,7 +21,6 @@ public partial class Parent : UserControl, INotifyPropertyChanged
         {
             Console.WriteLine("Setting Data");
             SetValue(DataProperty, value);
-            OnPropertyChanged();
         }
     }
 
@@ -39,12 +38,5 @@ public partial class Parent : UserControl, INotifyPropertyChanged
                 
                 ((o as Parent)!).Data = (DataInfo)args.NewValue;
             }));
-
-
-    public event PropertyChangedEventHandler? PropertyChanged;
-
-    protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
-    {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-    }
+    
 }
